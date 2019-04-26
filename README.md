@@ -1,37 +1,47 @@
-Hooks only work with functional component.
-It replace the setState() in the class base component (container)
-The convention with hooks is that we use `use` prefix like `use`State
+# Service serviceWorker
+
+## About
+- They can't access DOM
+- Programmable network proxy
+- Require HTTPS unless on localhost
+- Terminated when not being used.
 
 
-useState() return always two elements
+## used for
+- Push notification.
+- act like proxy
+- Caching assets & API calls
+- Background data sync/preload
 
-1. the current state of the application `state`
-2. the function to set the state `setState`
+
+## Life cycle & Events
+Register -> Install -> Activate
+
+## Check if exist
 ```js
-const [state, setState] = useState({
-  counter: 0,
-  text: 'hello world'
+if(navigator.serviceWorker) {
+  console.log('serviceWorker supported');
+}
+```
+
+## To register SW
+We have to register it when window load
+
+## With chrome
+go to Application -> ServiceWorker -> Update on reload
+go to Console -> preserve console.log()
+
+## Install Event & Activate
+```js
+self.addEventListener('install' (event) => {
+  console.log(`Service worker Installed`)
+})
+self.addEventListener('activate', (event) => {
+  console.log(`Service worker Activated`)
 });
 ```
 
-When we use setState, we overwrite all state in the application, so after this example, text state is undefined
-```js
-setState({counter : 1})
-```
-
-To keep the state, use the spread operator to
-
-```js
-setState({
-  ...state,
-  counter : 1
-})
-```
-
-With functional component, we can use multiple states.
-
-## To add lifecycles in functional component add useEffect()
-It can replace componentDidMount()
-```js
-
-```
+## Cache storage
+Can access without internet.
+- Can individual cache file.
+- Cache all network.
